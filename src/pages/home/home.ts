@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
-import { AlertController } from 'ionic-angular';
+import { ModalController } from 'ionic-angular';
+import { SubirPage } from '../subir/subir';
+
 
 @Component({
   selector: 'page-home',
@@ -8,17 +9,14 @@ import { AlertController } from 'ionic-angular';
 })
 export class HomePage {
 
-  constructor(public navCtrl: NavController,public alertCtrl: AlertController) {
+  constructor(private modalCtrl:ModalController) {
 
   }
 
-  doAlert() {
-    let alert = this.alertCtrl.create({
-      title: 'Que onda',
-      subTitle: 'opinshi ramiro',
-      buttons: ['OK']
-    });
-    alert.present();
+  mostrar_modal(){
+    let modal = this.modalCtrl.create(SubirPage)
+    modal.present();
   }
+
 }
 

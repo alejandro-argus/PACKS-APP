@@ -1,11 +1,54 @@
 <ion-header>
-    <ion-navbar color="primary">
+    <ion-navbar color="dark">
         <ion-title>
-            Mi primera App
+            Packs Argus
         </ion-title>
     </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-    <button ion-button block color="dark" (click)="doAlert()">Show Basic Alert</button>
+<ion-content>
+        <ion-card>
+                
+                  <ion-item>
+                    <ion-avatar item-start>
+                      <img src="https://image.flaticon.com/icons/png/512/78/78373.png">
+                    </ion-avatar>
+                    <h2>Sael Romero</h2>
+                    <p>13 de octubre de 2017</p>
+                  </ion-item>
+                
+                  <img src="http://zelda.com/breath-of-the-wild/assets/icons/BOTW-Share_icon.jpg">
+                
+                  <ion-card-content>
+                    <p>Algun dia conseguire los 500 pesos...</p>
+                  </ion-card-content>
+                
+                  <ion-row>
+                    <ion-col>
+                      <button ion-button icon-left clear small>
+                        <ion-icon name="thumbs-up"></ion-icon>
+                        <div>12 Laiks</div>
+                      </button>
+                    </ion-col>
+                    <ion-col>
+                      <button ion-button icon-left clear small>
+                        <ion-icon name="text"></ion-icon>
+                        <div>4 Comentarios</div>
+                      </button>
+                    </ion-col>
+                    <ion-col center text-center>
+                      <ion-note>
+                        11h ago
+                      </ion-note>
+                    </ion-col>
+                  </ion-row>
+                
+                </ion-card>
+
+
+
+
+    <ion-fab bottom right>
+        <button (click)="mostrar_modal()" ion-fab color="danger"><ion-icon name="add"></ion-icon></button>
+      </ion-fab>
 </ion-content>
