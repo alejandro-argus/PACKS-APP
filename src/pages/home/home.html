@@ -7,7 +7,7 @@
 </ion-header>
 
 <ion-content>
-        <ion-card>
+        <ion-card *ngFor="let post of posts | async">
                 
                   <ion-item>
                     <ion-avatar item-start>
@@ -17,17 +17,17 @@
                     <p>13 de octubre de 2017</p>
                   </ion-item>
                 
-                  <img src="http://zelda.com/breath-of-the-wild/assets/icons/BOTW-Share_icon.jpg">
+                  <img [src]="post.img">
                 
                   <ion-card-content>
-                    <p>Algun dia conseguire los 500 pesos...</p>
+                    <p>{{post.titulo}}</p>
                   </ion-card-content>
                 
                   <ion-row>
                     <ion-col>
                       <button ion-button icon-left clear small>
                         <ion-icon name="thumbs-up"></ion-icon>
-                        <div>12 Laiks</div>
+                        <div>{{post.laiks}} Laiks</div>
                       </button>
                     </ion-col>
                     <ion-col>

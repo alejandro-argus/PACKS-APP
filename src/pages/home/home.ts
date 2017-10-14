@@ -3,13 +3,22 @@ import { ModalController } from 'ionic-angular';
 import { SubirPage } from '../subir/subir';
 
 
+import { AngularFireDatabase } from 'angularfire2/database';
+import { Observable } from 'rxjs/Observable';
+
+
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
 export class HomePage {
 
-  constructor(private modalCtrl:ModalController) {
+  posts: Observable<any[]> = null;
+
+  constructor(private modalCtrl:ModalController, 
+              private afDB: AngularFireDatabase) {
+
+                this.posts = afDB.list('post').valueChanges();
 
   }
 

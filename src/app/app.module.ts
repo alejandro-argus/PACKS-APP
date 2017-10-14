@@ -4,6 +4,28 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 
+
+//Pipes
+import {PipesModule} from '../pipes/pipes.module'
+
+//Plugins
+import { Camera } from '@ionic-native/camera';
+
+
+//Firebase
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireDatabaseModule, AngularFireDatabase } from 'angularfire2/database';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+
+export const firebaseConfig = {
+  apiKey: "AIzaSyChyM7oUZkftwYsDchkjfXTcZyqw-4-X4M",
+  authDomain: "gag-c125e.firebaseapp.com",
+  databaseURL: "https://gag-c125e.firebaseio.com",
+  projectId: "gag-c125e",
+  storageBucket: "gag-c125e.appspot.com",
+  messagingSenderId: "531894356264"
+};
+
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { SubirPage } from '../pages/subir/subir';
@@ -16,7 +38,11 @@ import { SubirPage } from '../pages/subir/subir';
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireDatabaseModule,
+    AngularFireAuthModule,
+    PipesModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -27,6 +53,8 @@ import { SubirPage } from '../pages/subir/subir';
   providers: [
     StatusBar,
     SplashScreen,
+    Camera,
+    AngularFireDatabase,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
