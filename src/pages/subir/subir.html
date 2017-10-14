@@ -1,19 +1,27 @@
-
 <ion-header>
+    <ion-navbar>
+       
+        <ion-buttons>
+            <button ion-button icon-only (click)="cerrar_modal()">
+               Regresar
+            </button>
+        </ion-buttons>
 
-  <ion-navbar>
-    <ion-buttons>
-      <button ion-button (click)="cerrar_modal()">
-        Cerrar
-      </button>
-    </ion-buttons>
-    <ion-title>{{descripcion | placeholder: 'Subir Imagen'}}</ion-title>
-  </ion-navbar>
 
+
+        <ion-buttons end>
+            <button ion-button icon-only (click)="crear_post()">
+               Subir
+            </button>
+        </ion-buttons>
+    </ion-navbar>
 </ion-header>
 
 
+
+
 <ion-content padding>
+    <ion-title center >Subir imagen</ion-title>
     <ion-list>
         
           <ion-item>
