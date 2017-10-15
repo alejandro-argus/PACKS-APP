@@ -9,7 +9,7 @@
 
 
 
-        <ion-buttons end>
+        <ion-buttons end *ngIf="imagenPreview && descripcion">
             <button ion-button icon-only (click)="crear_post()">
                Subir
             </button>

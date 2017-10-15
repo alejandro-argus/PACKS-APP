@@ -70,7 +70,10 @@ export class SubirPage {
       titulo: this.descripcion,
     }
 
-    this._cargaArchivo.cargar_imagen_firebase(archivo)
+    this._cargaArchivo.cargar_imagen_firebase(archivo).then(
+      ()=> this.cerrar_modal()
+    )
+
 
   }
 
