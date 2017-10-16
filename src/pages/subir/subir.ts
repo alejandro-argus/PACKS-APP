@@ -5,6 +5,8 @@ import { ImagePicker, ImagePickerOptions } from '@ionic-native/image-picker';
 
 import{CargaArchivoProvider} from '../../providers/carga-archivo/carga-archivo'
 
+import { LoadingController } from 'ionic-angular';
+
 
 
 
@@ -18,7 +20,11 @@ export class SubirPage {
   imagenPreview:string;
   imagen64:string;
 
-  constructor(private viewCtrl: ViewController, private camara:Camera, private imagePicker: ImagePicker, public _cargaArchivo:CargaArchivoProvider ) {
+  constructor(private viewCtrl: ViewController, 
+              private camara:Camera, 
+              private imagePicker: ImagePicker, 
+              public _cargaArchivo:CargaArchivoProvider,
+              public loadingCtrl: LoadingController ) {
   }
 
   cerrar_modal(){
@@ -62,6 +68,7 @@ export class SubirPage {
       console.log("ERROR EM SELECTOR DE IMAGENES",JSON.stringify(err))
      });
   }
+  
 
   crear_post(){
 
@@ -70,12 +77,21 @@ export class SubirPage {
       titulo: this.descripcion,
     }
 
+    const loading = this.loadingCtrl.create({
+      content: 'Awantha we :v...'
+    });
+  
+    loading.present();
+
+  
     this._cargaArchivo.cargar_imagen_firebase(archivo).then(
-      ()=> this.cerrar_modal()
+      ()=>  loading.dismiss()
     )
 
 
   }
+
+  
 
 
 }
