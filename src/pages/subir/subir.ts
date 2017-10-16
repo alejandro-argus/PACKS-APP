@@ -5,7 +5,6 @@ import { ImagePicker, ImagePickerOptions } from '@ionic-native/image-picker';
 
 import{CargaArchivoProvider} from '../../providers/carga-archivo/carga-archivo'
 
-import { LoadingController } from 'ionic-angular';
 
 
 
@@ -23,8 +22,7 @@ export class SubirPage {
   constructor(private viewCtrl: ViewController, 
               private camara:Camera, 
               private imagePicker: ImagePicker, 
-              public _cargaArchivo:CargaArchivoProvider,
-              public loadingCtrl: LoadingController ) {
+              public _cargaArchivo:CargaArchivoProvider ) {
   }
 
   cerrar_modal(){
@@ -77,15 +75,13 @@ export class SubirPage {
       titulo: this.descripcion,
     }
 
-    const loading = this.loadingCtrl.create({
-      content: 'Awantha we :v...'
-    });
-  
-    loading.present();
+    
 
   
     this._cargaArchivo.cargar_imagen_firebase(archivo).then(
-      ()=>  loading.dismiss()
+      ()=>{
+        this.cerrar_modal()
+      }  
     )
 
 

@@ -3,6 +3,8 @@ import { AngularFireDatabase} from 'angularfire2/database';
 import * as firebase from 'firebase';
 import { ToastController } from 'ionic-angular';
 
+import { LoadingController } from 'ionic-angular';
+
 /*
   Generated class for the CargaArchivoProvider provider.
 
@@ -14,13 +16,21 @@ export class CargaArchivoProvider {
 
   imagenes:ArchivoSubir[] = [];
 
-  constructor(public toastCtrl: ToastController, public afDB:AngularFireDatabase) {
+  constructor(public toastCtrl: ToastController, public afDB:AngularFireDatabase, public loadingCtrl: LoadingController) {
     console.log('Hello CargaArchivoProvider Provider');
   }
 
   cargar_imagen_firebase(archivo:ArchivoSubir){
+
+    const loading = this.loadingCtrl.create({
+      content: 'Subiendo Imagen...'
+    });
+  
+   
+
     let promise = new Promise((resolve, reject)=>{
-      this.mostrar_toast('Cargando...');
+      //this.mostrar_toast('Cargando...');
+      loading.present();
 
       let storeRef = firebase.storage().ref();
       let nombreArchivo:string= new Date().valueOf().toString();
@@ -30,6 +40,7 @@ export class CargaArchivoProvider {
       ()=>{},//Saber el % de cuantos Mbs se han subido
       (error)=>{
         //manejo de error
+        loading.dismiss();
         console.log("ERROR EN LA CARGA");
         console.log(JSON.stringify(error));
         this.mostrar_toast(JSON.stringify(error));
@@ -37,6 +48,7 @@ export class CargaArchivoProvider {
       
       ()=>{
         //TODO BIEN
+        loading.dismiss();
         console.log("Archivo subido");
         this.mostrar_toast('Imagen subida correctamente');
         let urk = uploadTask.snapshot.downloadURL
