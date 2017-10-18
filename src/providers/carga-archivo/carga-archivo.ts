@@ -20,9 +20,11 @@ export class CargaArchivoProvider {
 
   constructor(public toastCtrl: ToastController, public afDB:AngularFireDatabase, public loadingCtrl: LoadingController) {
     console.log('Hello CargaArchivoProvider Provider');
-    this.cargar_ultimo_key().subscribe(() =>{
-      this.cargar_imagenes();
-    });
+    this.cargar_ultimo_key().subscribe(
+      () =>{
+          this.cargar_imagenes();
+      }
+    );
   }
 
   cargar_ultimo_key(){
@@ -30,6 +32,7 @@ export class CargaArchivoProvider {
     .map((post:any) =>{
       console.log(post);
       this.lastkey = post[post.length -1].key;
+      console.log(this.lastkey);
       
       this.imagenes = [];
       this.imagenes.push( post[post.length -1]);
@@ -42,18 +45,22 @@ export class CargaArchivoProvider {
       this.afDB.list('/post',ref => ref.limitToLast(3).orderByKey().endAt(this.lastkey)).valueChanges().subscribe((posts:any)=>
       {
         posts.pop();
+        console.log(posts);
         if(posts.length == 0){
           console.log("Ya no hay mas registros")
           resolve(false);
-          return;
+          //return;
+        }else{
+          this.lastkey = posts[length].key;
+          //this.imagenes = [];
+          console.log("apenas va entrar al ciclo")
+          for(let i = posts.length-1;     i>=0;      i--){
+            let post = posts[i];
+            this.imagenes.push(post);
+          } 
+          resolve(true);    
         }
-        this.lastkey = posts[length - 1].key;
-        //this.imagenes = [];
-        for(let i = posts.length-1; i>=0;i--){
-          let post = posts[i];
-          this.imagenes.push(post);
-        } 
-        resolve(true);    
+       
       
       })
 
