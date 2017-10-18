@@ -6,6 +6,8 @@ import { ToastController } from 'ionic-angular';
 
 import { LoadingController } from 'ionic-angular';
 
+
+
 /*
   Generated class for the CargaArchivoProvider provider.
 
@@ -17,6 +19,7 @@ export class CargaArchivoProvider {
 
   imagenes:ArchivoSubir[] = [];
   lastkey: string = null;
+  haymas:boolean = true;
 
   constructor(public toastCtrl: ToastController, public afDB:AngularFireDatabase, public loadingCtrl: LoadingController) {
     console.log('Hello CargaArchivoProvider Provider');
@@ -48,6 +51,7 @@ export class CargaArchivoProvider {
         console.log(posts);
         if(posts.length == 0){
           console.log("Ya no hay mas registros")
+          this.haymas = false;
           resolve(false);
           //return;
         }else{
@@ -58,6 +62,7 @@ export class CargaArchivoProvider {
             let post = posts[i];
             this.imagenes.push(post);
           } 
+          this.haymas = true;
           resolve(true);    
         }
        

@@ -31,7 +31,7 @@ export class HomePage {
 
       this._cap.cargar_imagenes().then(
         (hayMas:boolean) =>{
-          this.haymas = hayMas;
+          this.haymas =  this._cap.haymas;
           infiniteScroll.complete();
         }
       )
