@@ -1,58 +1,58 @@
 <ion-header>
     <ion-navbar color="dark">
         <ion-title>
-           PACKS APP 
+            PACKS APP
         </ion-title>
     </ion-navbar>
 </ion-header>
 
 <ion-content>
-        <ion-card *ngFor="let post of _cap.imagenes">
-                
-                  <ion-item>
-                    <ion-avatar item-start>
-                      <img src="https://image.flaticon.com/icons/png/512/78/78373.png">
-                    </ion-avatar>
-                    <h2>Sael Romero</h2>
-                    <p>13 de octubre de 2017</p>
-                  </ion-item>
-                
-                  <img [src]="post.img">
-                
-                  <ion-card-content>
-                    <p>{{post.titulo}}</p>
-                  </ion-card-content>
-                
-                  <ion-row>
-                    <ion-col>
-                      <button ion-button icon-left clear small>
+    <ion-card *ngFor="let post of _cap.imagenes">
+
+        <ion-item>
+            <ion-avatar item-start>
+                <img src="https://image.flaticon.com/icons/png/512/78/78373.png">
+            </ion-avatar>
+            <h2>Anonimo</h2>
+
+        </ion-item>
+
+        <img [src]="post.img">
+
+        <ion-card-content>
+            <p>{{post.titulo}}</p>
+        </ion-card-content>
+
+        <ion-row>
+            <ion-col>
+                <button ion-button icon-left clear small>
                         <ion-icon name="thumbs-up"></ion-icon>
                         <div>{{post.laiks}} Laiks</div>
                       </button>
-                    </ion-col>
-                    <ion-col>
-                      <button ion-button icon-left clear small>
+            </ion-col>
+            <ion-col>
+                <button ion-button icon-left clear small>
                         <ion-icon name="text"></ion-icon>
                         <div>4 Comentarios</div>
                       </button>
-                    </ion-col>
-                    <ion-col center text-center>
-                      <ion-note>
-                        11h ago
-                      </ion-note>
-                    </ion-col>
-                  </ion-row>
-                
-                </ion-card>
+            </ion-col>
+            <ion-col center text-center>
+                <ion-note>
+                    11h ago
+                </ion-note>
+            </ion-col>
+        </ion-row>
+
+    </ion-card>
 
 
 
 
     <ion-fab bottom right>
         <button (click)="mostrar_modal()" ion-fab color="danger"><ion-icon name="add"></ion-icon></button>
-      </ion-fab>
+    </ion-fab>
 
-      <ion-infinite-scroll (ionInfinite)="doInfinite($event)" [enabled]="haymas">
+    <ion-infinite-scroll (ionInfinite)="doInfinite($event)" [enabled]="haymas">
         <ion-infinite-scroll-content></ion-infinite-scroll-content>
-      </ion-infinite-scroll>
+    </ion-infinite-scroll>
 </ion-content>

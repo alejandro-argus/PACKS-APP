@@ -20,18 +20,20 @@ export class CargaArchivoProvider {
 
   constructor(public toastCtrl: ToastController, public afDB:AngularFireDatabase, public loadingCtrl: LoadingController) {
     console.log('Hello CargaArchivoProvider Provider');
+    afDB.list<ArchivoSubir>('/post').valueChanges().subscribe(console.log);
     this.cargar_ultimo_key().subscribe(() =>{
       this.cargar_imagenes();
     });
   }
 
   cargar_ultimo_key(){
-    return this.afDB.list('/post', ref => ref.orderByKey().limitToLast(1)).valueChanges()
+    return this.afDB.list('/post', ref => ref.orderByKey()).valueChanges()
     .map((post:any) =>{
       console.log(post);
-      this.lastkey = post[0].key;
+      this.lastkey = post[post.length -1].key;
+      
 
-      this.imagenes.push(post[0]);
+      this.imagenes.push( post[post.length -1]);
     })
   }
 
@@ -46,7 +48,8 @@ export class CargaArchivoProvider {
           resolve(false);
           return;
         }
-        this.lastkey = posts[0].key;
+        this.lastkey = posts[length - 1].key;
+        //this.imagenes = [];
         for(let i = posts.length-1; i>=0;i--){
           let post = posts[i];
           this.imagenes.push(post);
@@ -86,12 +89,10 @@ export class CargaArchivoProvider {
       
       ()=>{
         //TODO BIEN
-      
-        console.log("Archivo subido");
-       
         let urk = uploadTask.snapshot.downloadURL
         this.crear_post(archivo.titulo,urk,nombreArchivo)
-        loading.dismiss();
+         loading.dismiss();
+        console.log("Archivo subido");
         this.mostrar_toast('Imagen subida correctamente');
         resolve();
 
@@ -116,10 +117,8 @@ export class CargaArchivoProvider {
     console.log(JSON.stringify(post));
     //this.afDB.list('/post').push(post);
     this.afDB.object(`/post/${nombreArchivo}`).update(post);
+    
     //this.imagenes.push(post);
-    this.cargar_ultimo_key().subscribe(() =>{
-      this.cargar_imagenes();
-    });
 
   }
 
