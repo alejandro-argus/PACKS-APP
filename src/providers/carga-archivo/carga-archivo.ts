@@ -122,6 +122,7 @@ export class CargaArchivoProvider {
 
     console.log(JSON.stringify(post));
     //this.afDB.list('/post').push(post);
+    this.lastkey = nombreArchivo;
     this.afDB.object(`/post/${nombreArchivo}`).update(post);
     
     //this.imagenes.push(post);
