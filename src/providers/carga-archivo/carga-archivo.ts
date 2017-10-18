@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase} from 'angularfire2/database';
 import * as firebase from 'firebase';
+import 'rxjs/add/operator/map';
 import { ToastController } from 'ionic-angular';
-import { Observable } from 'rxjs/Observable';
 
 import { LoadingController } from 'ionic-angular';
 
@@ -16,9 +16,45 @@ import { LoadingController } from 'ionic-angular';
 export class CargaArchivoProvider {
 
   imagenes:ArchivoSubir[] = [];
+  lastkey: string = null;
 
   constructor(public toastCtrl: ToastController, public afDB:AngularFireDatabase, public loadingCtrl: LoadingController) {
     console.log('Hello CargaArchivoProvider Provider');
+    this.cargar_ultimo_key().subscribe(() =>{
+      this.cargar_imagenes();
+    });
+  }
+
+  cargar_ultimo_key(){
+    return this.afDB.list('/post', ref => ref.orderByKey().limitToLast(1)).valueChanges()
+    .map((post:any) =>{
+      this.lastkey = post[0].key;
+
+      this.imagenes.push(post[0]);
+    })
+  }
+
+
+  cargar_imagenes(){
+    return new Promise((resolve,reject)=>{
+      this.afDB.list('/post',ref => ref.limitToLast(3).orderByKey().endAt(this.lastkey)).valueChanges().subscribe((posts:any)=>
+      {
+        posts.pop();
+        if(posts.length == 0){
+          console.log("Ya no hay mas registros")
+          resolve(false);
+          return;
+        }
+        this.lastkey = posts[0].key;
+        for(let i = posts.length-1; i>=0;i--){
+          let post = posts[i];
+          this.imagenes.push(post);
+        } 
+        resolve(true);    
+      
+      })
+
+    });
   }
 
   cargar_imagen_firebase(archivo:ArchivoSubir){
@@ -68,7 +104,6 @@ export class CargaArchivoProvider {
   }
 
   private crear_post(titulo:string, url:string,nombreArchivo:string){
-    
     let post:ArchivoSubir ={
       img:url,
       titulo:titulo,
@@ -76,8 +111,8 @@ export class CargaArchivoProvider {
     }
 
     console.log(JSON.stringify(post));
-    this.afDB.list('/post').push(post);
-    //this.afDB.object(`/post/${nombreArchivo}`).update(post);
+    //this.afDB.list('/post').push(post);
+    this.afDB.object(`/post/${nombreArchivo}`).update(post);
     this.imagenes.push(post);
 
   }
@@ -93,7 +128,9 @@ export class CargaArchivoProvider {
 }
 
 interface ArchivoSubir{
-  titulo: string;
   img:string;
   key?:string;
+  titulo: string;
+ 
+  
 }
