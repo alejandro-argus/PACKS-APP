@@ -19,6 +19,7 @@ export class HomePage {
               private afDB: AngularFireDatabase) {
 
                 this.posts = afDB.list('post').valueChanges();
+                
 
   }
 

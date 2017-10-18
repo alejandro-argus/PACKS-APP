@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireDatabase} from 'angularfire2/database';
 import * as firebase from 'firebase';
 import { ToastController } from 'ionic-angular';
+import { Observable } from 'rxjs/Observable';
 
 import { LoadingController } from 'ionic-angular';
 
@@ -67,6 +68,7 @@ export class CargaArchivoProvider {
   }
 
   private crear_post(titulo:string, url:string,nombreArchivo:string){
+    
     let post:ArchivoSubir ={
       img:url,
       titulo:titulo,
@@ -74,8 +76,8 @@ export class CargaArchivoProvider {
     }
 
     console.log(JSON.stringify(post));
-    //this.afDB.list('/post').push(post);
-    this.afDB.object(`/post/${nombreArchivo}`).update(post);
+    this.afDB.list('/post').push(post);
+    //this.afDB.object(`/post/${nombreArchivo}`).update(post);
     this.imagenes.push(post);
 
   }
