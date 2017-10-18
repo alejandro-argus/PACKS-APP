@@ -86,4 +86,5 @@
         <variable name="PHOTO_LIBRARY_USAGE_DESCRIPTION" value="your usage message" />
     </plugin>
     <plugin name="cordova-plugin-x-toast" spec="^2.6.0" />
+    <engine name="android" spec="~6.3.0" />
 </widget>

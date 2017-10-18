@@ -20,7 +20,6 @@ export class CargaArchivoProvider {
 
   constructor(public toastCtrl: ToastController, public afDB:AngularFireDatabase, public loadingCtrl: LoadingController) {
     console.log('Hello CargaArchivoProvider Provider');
-    afDB.list<ArchivoSubir>('/post').valueChanges().subscribe(console.log);
     this.cargar_ultimo_key().subscribe(() =>{
       this.cargar_imagenes();
     });
