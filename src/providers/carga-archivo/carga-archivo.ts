@@ -28,6 +28,7 @@ export class CargaArchivoProvider {
   cargar_ultimo_key(){
     return this.afDB.list('/post', ref => ref.orderByKey().limitToLast(1)).valueChanges()
     .map((post:any) =>{
+      console.log(post);
       this.lastkey = post[0].key;
 
       this.imagenes.push(post[0]);
@@ -85,11 +86,13 @@ export class CargaArchivoProvider {
       
       ()=>{
         //TODO BIEN
-        loading.dismiss();
+      
         console.log("Archivo subido");
-        this.mostrar_toast('Imagen subida correctamente');
+       
         let urk = uploadTask.snapshot.downloadURL
         this.crear_post(archivo.titulo,urk,nombreArchivo)
+        loading.dismiss();
+        this.mostrar_toast('Imagen subida correctamente');
         resolve();
 
       }
@@ -113,7 +116,10 @@ export class CargaArchivoProvider {
     console.log(JSON.stringify(post));
     //this.afDB.list('/post').push(post);
     this.afDB.object(`/post/${nombreArchivo}`).update(post);
-    this.imagenes.push(post);
+    //this.imagenes.push(post);
+    this.cargar_ultimo_key().subscribe(() =>{
+      this.cargar_imagenes();
+    });
 
   }
 
