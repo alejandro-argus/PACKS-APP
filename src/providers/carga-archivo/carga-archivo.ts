@@ -32,7 +32,7 @@ export class CargaArchivoProvider {
       console.log(post);
       this.lastkey = post[post.length -1].key;
       
-
+      this.imagenes = [];
       this.imagenes.push( post[post.length -1]);
     })
   }
