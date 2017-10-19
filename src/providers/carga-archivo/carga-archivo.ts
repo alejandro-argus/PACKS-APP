@@ -39,6 +39,7 @@ export class CargaArchivoProvider {
       
       this.imagenes = [];
       this.imagenes.push( post[post.length -1]);
+      
     })
   }
 
@@ -55,13 +56,15 @@ export class CargaArchivoProvider {
           resolve(false);
           return;
         }else{
-          this.lastkey = posts[posts.length - 1].key;
+         
           //this.imagenes = [];
           console.log("apenas va entrar al ciclo")
           for(let i = posts.length-1;     i>=0;      i--){
             let post = posts[i];
+            
             this.imagenes.push(post);
           } 
+          this.lastkey = this.imagenes[this.imagenes.length - 1].key;
           resolve(true);    
         }
        
