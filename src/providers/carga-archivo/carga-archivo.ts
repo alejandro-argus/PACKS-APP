@@ -47,7 +47,7 @@ export class CargaArchivoProvider {
     return new Promise((resolve,reject)=>{
       this.afDB.list('/post',ref => ref.limitToLast(3).orderByKey().endAt(this.lastkey)).valueChanges().subscribe((posts:any)=>
       {
-        this.lastkey = posts[length - 1].key;
+        
         posts.pop();
         console.log(posts);
         if(posts.length == 0){
@@ -55,7 +55,7 @@ export class CargaArchivoProvider {
           resolve(false);
           return;
         }else{
-         
+          this.lastkey = posts[posts.length - 1].key;
           //this.imagenes = [];
           console.log("apenas va entrar al ciclo")
           for(let i = posts.length-1;     i>=0;      i--){
@@ -70,6 +70,16 @@ export class CargaArchivoProvider {
 
     });
   }
+
+
+  cargar_imagenes_refresh(){
+    this.cargar_ultimo_key().subscribe(
+      () =>{
+          this.cargar_imagenes();
+      }
+    );
+  }
+
 
   cargar_imagen_firebase(archivo:ArchivoSubir){
 

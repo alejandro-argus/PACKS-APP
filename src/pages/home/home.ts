@@ -39,6 +39,14 @@ export class HomePage {
 
   }
 
+  doRefresh(refresher) {
+    console.log('Begin async operation', refresher);
+
+    this._cap.cargar_imagenes_refresh();
+    refresher.complete();
+    this.haymas = true;
+  }
+
 
 }
 
