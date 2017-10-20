@@ -5,6 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 
 
+
 //Pipes
 import {PipesModule} from '../pipes/pipes.module'
 
@@ -13,6 +14,7 @@ import {PipesModule} from '../pipes/pipes.module'
 //Plugins
 import { Camera } from '@ionic-native/camera';
 import { ImagePicker } from '@ionic-native/image-picker';
+import { IonicImageViewerModule } from 'ionic-img-viewer';
 
 
 
@@ -47,7 +49,8 @@ import { CargaArchivoProvider } from '../providers/carga-archivo/carga-archivo';
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
-    PipesModule
+    PipesModule,
+    IonicImageViewerModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
