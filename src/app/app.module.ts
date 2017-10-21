@@ -15,6 +15,7 @@ import {PipesModule} from '../pipes/pipes.module'
 import { Camera } from '@ionic-native/camera';
 import { ImagePicker } from '@ionic-native/image-picker';
 import { IonicImageViewerModule } from 'ionic-img-viewer';
+import { LocalNotifications } from '@ionic-native/local-notifications';
 
 
 
@@ -65,7 +66,8 @@ import { CargaArchivoProvider } from '../providers/carga-archivo/carga-archivo';
     ImagePicker,
     AngularFireDatabase,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    CargaArchivoProvider
+    CargaArchivoProvider,
+    LocalNotifications
   ]
 })
 export class AppModule {}

@@ -5,6 +5,7 @@ import 'rxjs/add/operator/map';
 import { ToastController } from 'ionic-angular';
 
 import { LoadingController } from 'ionic-angular';
+import { LocalNotifications } from '@ionic-native/local-notifications';
 
 
 
@@ -21,7 +22,7 @@ export class CargaArchivoProvider {
   lastkey: string = null;
   
 
-  constructor(public toastCtrl: ToastController, public afDB:AngularFireDatabase, public loadingCtrl: LoadingController) {
+  constructor(public toastCtrl: ToastController, public afDB:AngularFireDatabase, public loadingCtrl: LoadingController,private localNotifications: LocalNotifications) {
     console.log('Hello CargaArchivoProvider Provider');
     this.cargar_ultimo_key().subscribe(
       () =>{
@@ -117,6 +118,16 @@ export class CargaArchivoProvider {
          loading.dismiss();
         console.log("Archivo subido");
         this.mostrar_toast('Imagen subida correctamente');
+       
+        // Schedule delayed notification
+        this.localNotifications.schedule({
+          text: 'Delayed ILocalNotification',
+          at: new Date(new Date().getTime() + 3600),
+          led: 'FF0000',
+          sound: null
+        });
+
+
         resolve();
 
       }
