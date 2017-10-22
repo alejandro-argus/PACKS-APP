@@ -121,7 +121,7 @@ export class CargaArchivoProvider {
        
         // Schedule delayed notification
         this.localNotifications.schedule({
-          text: 'Delayed ILocalNotification',
+          text: 'Nuevo Pack!!!',
           at: new Date(new Date().getTime() + 3600),
           led: 'FF0000',
           sound: null
