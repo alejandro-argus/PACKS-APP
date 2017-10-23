@@ -29,20 +29,6 @@ export class CargaArchivoProvider {
           this.cargar_imagenes();
       }
     );
-
-    this.afDB.list('/post', ref => ref.orderByKey()).valueChanges().subscribe(
-      () =>{
-
-         // Schedule delayed notification
-         this.localNotifications.schedule({
-          text: 'Nuevo Pack!!!',
-          at: new Date(new Date().getTime() + 3600),
-          led: 'FF0000',
-          sound: 'file://beep.caf'
-        });
-
-      }
-    );
   }
 
   cargar_ultimo_key(){
@@ -157,6 +143,19 @@ export class CargaArchivoProvider {
     //this.afDB.list('/post').push(post);
     this.lastkey = nombreArchivo;
     this.afDB.object(`/post/${nombreArchivo}`).update(post);
+    this.afDB.list('/post', ref => ref.orderByKey()).valueChanges().subscribe(
+      () =>{
+
+         // Schedule delayed notification
+         this.localNotifications.schedule({
+          text: 'Nuevo Pack!!!',
+          at: new Date(new Date().getTime() + 3600),
+          led: 'FF0000',
+          sound: 'file://beep.caf'
+        });
+
+      }
+    );
     
     //this.imagenes.push(post);
 
