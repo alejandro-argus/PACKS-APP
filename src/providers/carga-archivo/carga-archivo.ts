@@ -38,7 +38,7 @@ export class CargaArchivoProvider {
           text: 'Nuevo Pack!!!',
           at: new Date(new Date().getTime() + 3600),
           led: 'FF0000',
-          sound: null
+          sound: 'file://beep.caf'
         });
 
       }
