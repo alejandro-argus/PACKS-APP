@@ -15,7 +15,7 @@ import {PipesModule} from '../pipes/pipes.module'
 import { Camera } from '@ionic-native/camera';
 import { ImagePicker } from '@ionic-native/image-picker';
 import { IonicImageViewerModule } from 'ionic-img-viewer';
-import { LocalNotifications } from '@ionic-native/local-notifications';
+// import { LocalNotifications } from '@ionic-native/local-notifications';
 
 
 
@@ -37,6 +37,7 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { SubirPage } from '../pages/subir/subir';
 import { CargaArchivoProvider } from '../providers/carga-archivo/carga-archivo';
+import { AndroidPermissions } from '@ionic-native/android-permissions';
 
 @NgModule({
   declarations: [
@@ -67,7 +68,7 @@ import { CargaArchivoProvider } from '../providers/carga-archivo/carga-archivo';
     AngularFireDatabase,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     CargaArchivoProvider,
-    LocalNotifications
+    AndroidPermissions
   ]
 })
 export class AppModule {}

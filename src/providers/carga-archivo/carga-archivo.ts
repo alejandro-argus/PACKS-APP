@@ -5,7 +5,7 @@ import 'rxjs/add/operator/map';
 import { ToastController } from 'ionic-angular';
 
 import { LoadingController } from 'ionic-angular';
-import { LocalNotifications } from '@ionic-native/local-notifications';
+
 
 
 
@@ -22,7 +22,7 @@ export class CargaArchivoProvider {
   lastkey: string = null;
   
 
-  constructor(public toastCtrl: ToastController, public afDB:AngularFireDatabase, public loadingCtrl: LoadingController,private localNotifications: LocalNotifications) {
+  constructor(public toastCtrl: ToastController, public afDB:AngularFireDatabase, public loadingCtrl: LoadingController) {
     console.log('Hello CargaArchivoProvider Provider');
     this.cargar_ultimo_key().subscribe(
       () =>{
@@ -146,13 +146,13 @@ export class CargaArchivoProvider {
     this.afDB.list('/post', ref => ref.orderByKey()).valueChanges().subscribe(
       () =>{
 
-         // Schedule delayed notification
-         this.localNotifications.schedule({
-          text: 'Nuevo Pack!!!',
-          at: new Date(new Date().getTime() + 3600),
-          led: 'FF0000',
-          sound: 'file://beep.caf'
-        });
+        //  // Schedule delayed notification
+        //  this.localNotifications.schedule({
+        //   text: 'Nuevo Pack!!!',
+        //   at: new Date(new Date().getTime() + 3600),
+        //   led: 'FF0000',
+        //   sound: 'file://beep.caf'
+        // });
 
       }
     );

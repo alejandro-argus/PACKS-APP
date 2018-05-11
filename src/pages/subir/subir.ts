@@ -4,6 +4,7 @@ import { Camera,CameraOptions } from '@ionic-native/camera';
 import { ImagePicker, ImagePickerOptions } from '@ionic-native/image-picker';
 
 import{CargaArchivoProvider} from '../../providers/carga-archivo/carga-archivo'
+import { AndroidPermissions } from '@ionic-native/android-permissions';
 
 
 
@@ -22,7 +23,8 @@ export class SubirPage {
   constructor(private viewCtrl: ViewController, 
               private camara:Camera, 
               private imagePicker: ImagePicker, 
-              public _cargaArchivo:CargaArchivoProvider ) {
+              public _cargaArchivo:CargaArchivoProvider,
+              private androidPermissions: AndroidPermissions ) {
   }
 
   cerrar_modal(){
@@ -44,10 +46,40 @@ export class SubirPage {
      this.imagenPreview = 'data:image/jpeg;base64,' + imageData;
      this.imagen64 = imageData;
     }, (err) => {
-     console.log("ERROR EN CAMARA",JSON.stringify(err))
+     // console.log("ERROR EN CAMARA",JSON.stringify(err))WW
+     this.androidPermissions.requestPermission(this.androidPermissions.PERMISSION.CAMERA)
     });
     
   }
+
+  pedir_permisos(){
+
+    this.androidPermissions.checkPermission(this.androidPermissions.PERMISSION.CAMERA).then(
+      (result) => {
+        if(result.hasPermission){
+          this.mostrar_camara()
+        }
+        else{
+          this.androidPermissions.requestPermission(this.androidPermissions.PERMISSION.CAMERA).then(
+            (result) => {
+              if(result.hasPermission){
+                this.mostrar_camara()
+              }
+            },
+            (err) =>{
+              this.androidPermissions.requestPermission(this.androidPermissions.PERMISSION.CAMERA).then
+            } 
+          );
+
+        }
+      },
+      (err) =>{
+      
+      } 
+    );
+  }
+
+  
 
   seleccionar_foto(){
     let opciones:ImagePickerOptions = {
