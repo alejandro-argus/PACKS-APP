@@ -121,7 +121,7 @@ export class SubirPage {
 		this.imagen64 = imageData;
 	}, function (err) {
 		// console.log("ERROR EN CAMARA",JSON.stringify(err))WW
-		this.androidPermissions.requestPermission(_this.androidPermissions.PERMISSION.CAMERA);
+		this.androidPermissions.requestPermission(this.androidPermissions.PERMISSION.CAMERA);
 	});
   }
 
