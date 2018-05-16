@@ -109,10 +109,10 @@ export class SubirPage {
 		quality: 70,
 		outputType: 1,
 		maximumImagesCount: 3,
-		sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
-		destinationType:  Camera.DestinationType.DATA_URL,
-		encodingType:  Camera.EncodingType.JPEG,
-		mediaType:  Camera.MediaType.PICTURE
+		sourceType: this.camara.PictureSourceType.PHOTOLIBRARY,
+		destinationType:  this.camara.DestinationType.DATA_URL,
+		encodingType:  this.camara.EncodingType.JPEG,
+		mediaType:  this.camara.MediaType.PICTURE
 	};
 	this.camara.getPicture(opciones).then(function (imageData) {
 		// imageData is either a base64 encoded string or a file URI
