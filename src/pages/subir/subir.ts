@@ -114,15 +114,13 @@ export class SubirPage {
 		encodingType:  this.camara.EncodingType.JPEG,
 		mediaType:  this.camara.MediaType.PICTURE
 	};
-	this.camara.getPicture(opciones).then(function (imageData) {
-		// imageData is either a base64 encoded string or a file URI
-		// If it's base64:
-		this.imagenPreview = 'data:image/jpeg;base64,' + imageData;
-		this.imagen64 = imageData;
-	}, function (err) {
-		// console.log("ERROR EN CAMARA",JSON.stringify(err))WW
-		this.androidPermissions.requestPermission(this.androidPermissions.PERMISSION.CAMERA);
-	});
+	this.camara.getPicture(opciones).then(imageData => {
+        this.imagenPreview = "data:image/jpeg;base64," + imageData;
+        this.imagen64 = imageData;
+      },
+      err => {
+        this.androidPermissions.requestPermission(this.androidPermissions.PERMISSION.CAMERA);
+      });
   }
 
   crear_post() {
