@@ -105,23 +105,24 @@ export class SubirPage {
   }
 
   seleccionar_foto() {
-    let opciones: ImagePickerOptions = {
-      quality: 70,
-      outputType: 1,
-      maximumImagesCount: 1
-    };
-
-    this.imagePicker.getPictures(opciones).then(
-      results => {
-        for (var i = 0; i < results.length; i++) {
-          this.imagenPreview = "data:image/jpeg;base64," + results[i];
-          this.imagen64 = results[i];
-        }
-      },
-      err => {
-        console.log("ERROR EM SELECTOR DE IMAGENES", JSON.stringify(err));
-      }
-    );
+	let opciones = {
+		quality: 70,
+		outputType: 1,
+		maximumImagesCount: 3,
+		sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
+		destinationType:  Camera.DestinationType.DATA_URL,
+		encodingType:  Camera.EncodingType.JPEG,
+		mediaType:  Camera.MediaType.PICTURE
+	};
+	this.camara.getPicture(opciones).then(function (imageData) {
+		// imageData is either a base64 encoded string or a file URI
+		// If it's base64:
+		this.imagenPreview = 'data:image/jpeg;base64,' + imageData;
+		this.imagen64 = imageData;
+	}, function (err) {
+		// console.log("ERROR EN CAMARA",JSON.stringify(err))WW
+		this.androidPermissions.requestPermission(_this.androidPermissions.PERMISSION.CAMERA);
+	});
   }
 
   crear_post() {
